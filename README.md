@@ -1,23 +1,23 @@
 <div align="center">
 
-<!-- ANIMATED BANNER -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:00ff9d,100:0d1117&height=200&section=header&text=ICS%20HONEYPOT%20MITRE&fontSize=48&fontColor=00ff9d&fontAlignY=38&desc=Industrial%20Control%20System%20Threat%20Intelligence%20%7C%20MITRE%20ATT%26CK%20Mapped&descAlignY=60&descSize=14&animation=fadeIn" width="100%"/>
-
-<!-- BADGES ROW 1 -->
-<p>
-  <img src="https://img.shields.io/badge/STATUS-ACTIVE%20DEFENSE-00ff9d?style=for-the-badge&logo=shield&logoColor=black&labelColor=0d1117"/>
-  <img src="https://img.shields.io/badge/FRAMEWORK-MITRE%20ATT%26CK-FF4500?style=for-the-badge&logo=target&logoColor=white&labelColor=0d1117"/>
-  <img src="https://img.shields.io/badge/DOMAIN-ICS%20%2F%20OT%20SECURITY-00bfff?style=for-the-badge&logo=industrialiot&logoColor=white&labelColor=0d1117"/>
-</p>
-
-<!-- BADGES ROW 2 -->
-<p>
-  <img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=0d1117"/>
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=0d1117"/>
-  <img src="https://img.shields.io/badge/Threat%20Intel-Enabled-ff0055?style=for-the-badge&logo=virustotal&logoColor=white&labelColor=0d1117"/>
-</p>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:1a0a2e,100:0d1117&height=220&section=header&text=ICS-Honeypot-MITRE&fontSize=60&fontColor=00ff41&animation=fadeIn&fontAlignY=38&desc=ICS%20%2F%20OT%20Deception%20Layer%20%7C%20MITRE%20ATT%26CK%20Mapped%20Threat%20Intelligence&descAlignY=60&descAlign=50&descSize=18&descColor=7ee787" width="100%"/>
 
 <br/>
+
+<img src="https://img.shields.io/badge/MITRE%20ATT%26CK-ICS%20Matrix-00ff41?style=for-the-badge&logo=target&logoColor=black"/>
+<img src="https://img.shields.io/badge/Python-3.8%2B-7ee787?style=for-the-badge&logo=python&logoColor=black"/>
+<img src="https://img.shields.io/badge/Protocols-4%20Emulated-00ff41?style=for-the-badge&logo=gnometerminal&logoColor=black"/>
+<img src="https://img.shields.io/badge/Type-Deception%20Honeypot-7ee787?style=for-the-badge&logo=windowsterminal&logoColor=black"/>
+<img src="https://img.shields.io/badge/Domain-ICS%20%2F%20OT%20Security-ff6b6b?style=for-the-badge&logo=hackthebox&logoColor=white"/>
+
+<br/><br/>
+
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Modbus%20%7C%20DNP3%20%7C%20S7comm-Protocol%20Stack-00ff41?style=for-the-badge&logo=wireshark&logoColor=white"/>
+<img src="https://img.shields.io/badge/Red%20%26%20Blue%20Team-Dual%20Use-ff6b6b?style=for-the-badge&logo=hackthebox&logoColor=white"/>
+<img src="https://img.shields.io/badge/License-MIT-7ee787?style=for-the-badge&logo=opensourceinitiative&logoColor=white"/>
+
+<br/><br/>
 
 ```
 ╔══════════════════════════════════════════════════════════════════════════╗
