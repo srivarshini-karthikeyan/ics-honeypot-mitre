@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ICS Honeypot Dashboard</title>
+    <style>
+      body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 0; background: #0b1020; color: #e9eefc; }
+      header { padding: 16px 20px; border-bottom: 1px solid #1f2a4a; background: #0b1020; position: sticky; top: 0; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 14px; }
+      .card { background: #111a33; border: 1px solid #1f2a4a; border-radius: 10px; padding: 12px; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New"; font-size: 12px; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { text-align: left; padding: 8px; border-bottom: 1px solid #1f2a4a; vertical-align: top; }
+      .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; border: 1px solid #30406f; background: #0b1430; }
+      .sev-low { border-color: #2a5; }
+      .sev-medium { border-color: #ea0; }
+      .sev-high { border-color: #f55; }
+      a { color: #9ec2ff; }
+      @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+        <div>
+          <div style="font-size:16px;font-weight:700;">ICS Honeypot</div>
+          <div style="opacity:.8;font-size:12px;">Live events + MITRE ATT&CK (ICS) mapping (MVP)</div>
+        </div>
+        <div class="mono" style="opacity:.85">
+          API: <a href="/docs">/docs</a> &nbsp; | &nbsp; Events: <a href="/api/events">/api/events</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-weight:700;">Live events</div>
+          <div class="mono" id="wsStatus">connecting…</div>
+        </div>
+        <div style="height: 520px; overflow:auto; margin-top:10px;">
+          <table class="mono" id="eventsTable">
+            <thead>
+              <tr>
+                <th style="width:160px;">ts</th>
+                <th style="width:120px;">src</th>
+                <th style="width:220px;">action</th>
+                <th>MITRE</th>
+              </tr>
+            </thead>
+            <tbody id="eventsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-weight:700;">Top techniques (session)</div>
+        <div class="mono" style="opacity:.8;margin:8px 0 10px 0;">Counts are based on what this page has seen since load.</div>
+        <div id="topTechniques" class="mono"></div>
+        <hr style="border:0;border-top:1px solid #1f2a4a;margin:14px 0;" />
+        <div style="font-weight:700;">Notes</div>
+        <ul class="mono" style="opacity:.85; line-height: 1.45;">
+          <li>Modbus/TCP default port is <b>5020</b> (see config).</li>
+          <li>Writes are tagged as <b>T0831 Manipulation of Control</b> (rules configurable).</li>
+          <li>This is a research honeypot—run in an isolated lab network.</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      const statusEl = document.getElementById("wsStatus");
+      const bodyEl = document.getElementById("eventsBody");
+      const topEl = document.getElementById("topTechniques");
+      const counts = new Map();
+
+      function pill(sev) {
+        const cls = sev === "high" ? "sev-high" : (sev === "medium" ? "sev-medium" : "sev-low");
+        return `<span class="pill ${cls}">${sev}</span>`;
+      }
+
+      function renderTop() {
+        const items = Array.from(counts.entries()).sort((a,b)=>b[1]-a[1]).slice(0, 10);
+        topEl.innerHTML = items.map(([k,v]) => `${v.toString().padStart(3," ")}  ${k}`).join("<br/>") || "(no MITRE-tagged events yet)";
+      }
+
+      function addEvent(ev) {
+        const ts = (ev.ts || "").toString().replace("T"," ").replace("Z","Z");
+        const src = `${ev.src_ip}${ev.src_port ? ":"+ev.src_port : ""}`;
+        const mitre = (ev.mitre || []).map(t => `${t.technique_id} ${t.technique} (${Math.round((t.confidence||0)*100)}%)`).join("<br/>") || "";
+        (ev.mitre || []).forEach(t => {
+          const key = `${t.technique_id} ${t.technique}`;
+          counts.set(key, (counts.get(key) || 0) + 1);
+        });
+        renderTop();
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${ts}<br/>${pill(ev.severity || "low")}</td>
+          <td>${src}</td>
+          <td>${ev.action || ""}</td>
+          <td>${mitre}</td>
+        `;
+        bodyEl.prepend(tr);
+        while (bodyEl.children.length > 200) bodyEl.removeChild(bodyEl.lastChild);
+      }
+
+      function connect() {
+        const proto = location.protocol === "https:" ? "wss" : "ws";
+        const ws = new WebSocket(`${proto}://${location.host}/ws/events`);
+        ws.onopen = () => { statusEl.textContent = "connected"; statusEl.style.opacity = 0.9; };
+        ws.onclose = () => { statusEl.textContent = "disconnected (reconnecting…)"; setTimeout(connect, 1000); };
+        ws.onerror = () => { statusEl.textContent = "error"; };
+        ws.onmessage = (msg) => {
+          try { addEvent(JSON.parse(msg.data)); } catch (e) {}
+        };
+      }
+      connect();
+    </script>
+  </body>
+</html>
+

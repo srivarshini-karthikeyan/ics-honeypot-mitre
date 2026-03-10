@@ -1,0 +1,57 @@
+app:
+  host: "127.0.0.1"
+  port: 8000
+  log_level: "info"
+
+storage:
+  sqlite_path: "./data/events.sqlite"
+  jsonl_path: "./data/events.jsonl"
+
+honeypots:
+  modbus:
+    enabled: true
+    host: "0.0.0.0"
+    port: 5020
+    unit_id: 1
+    holding_registers: 50
+    input_registers: 50
+    coils: 50
+    discretes: 50
+    plant:
+      water_tank_level_register: 0
+      valve_open_coil: 0
+
+mitre_mapping:
+  rules_path: "./config/mitre_ics_rules.yaml"
+
+threat_intel:
+  enabled: true
+  mode: "offline"   # offline only (no API keys required)
+  denylist_path: "./config/intel_denylist.txt"
+  notes: "Add IPs/subnets/domains to denylist for local tagging. Leave empty to disable."
+
+decoys:
+  tcp_banners:
+    enabled: true
+    listeners:
+      - name: "opcua"
+        host: "0.0.0.0"
+        port: 4840
+        banner: "OPC UA Discovery Server (simulation)\r\n"
+      - name: "dnp3"
+        host: "0.0.0.0"
+        port: 20000
+        banner: "DNP3 Outstation (simulation)\r\n"
+      - name: "telnet"
+        host: "0.0.0.0"
+        port: 2323
+        banner: "Welcome to Engineering Workstation\r\nlogin: "
+
+ml:
+  enabled: false
+  model: "isolation_forest"
+
+simulation:
+  enabled: true
+  min_interval_s: 1.5
+  max_interval_s: 4.0

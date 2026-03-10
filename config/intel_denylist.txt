@@ -1,0 +1,12 @@
+# Offline threat-intel denylist (optional)
+#
+# Lines can be:
+# - IP: 1.2.3.4
+# - CIDR: 1.2.3.0/24
+# - Domain: example.com
+#
+# If an attacker matches a line here, the event gets enriched with:
+#   intel.offline.denylisted = true
+#
+# Leave empty if you don't want any local tagging.
+

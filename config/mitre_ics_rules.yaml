@@ -1,0 +1,75 @@
+version: 1
+rules:
+  # --- Network discovery / scanning
+  - id: scan_modbus_banner_or_probe
+    when:
+      service: "modbus"
+      action: "connect"
+    mitre:
+      tactic: "Discovery"
+      technique_id: "T0846"
+      technique: "Network Service Scanning"
+    confidence: 0.35
+
+  # --- Modbus read operations (collection/discovery-ish)
+  - id: modbus_read_holding_registers
+    when:
+      service: "modbus"
+      action: "modbus.read_holding_registers"
+    mitre:
+      tactic: "Discovery"
+      technique_id: "T0802"
+      technique: "Data from Information Repositories"
+    confidence: 0.55
+
+  - id: modbus_read_coils
+    when:
+      service: "modbus"
+      action: "modbus.read_coils"
+    mitre:
+      tactic: "Discovery"
+      technique_id: "T0802"
+      technique: "Data from Information Repositories"
+    confidence: 0.50
+
+  # --- Modbus write operations (control manipulation)
+  - id: modbus_write_single_register
+    when:
+      service: "modbus"
+      action: "modbus.write_single_register"
+    mitre:
+      tactic: "Impact"
+      technique_id: "T0831"
+      technique: "Manipulation of Control"
+    confidence: 0.80
+
+  - id: modbus_write_multiple_registers
+    when:
+      service: "modbus"
+      action: "modbus.write_multiple_registers"
+    mitre:
+      tactic: "Impact"
+      technique_id: "T0831"
+      technique: "Manipulation of Control"
+    confidence: 0.85
+
+  - id: modbus_write_single_coil
+    when:
+      service: "modbus"
+      action: "modbus.write_single_coil"
+    mitre:
+      tactic: "Impact"
+      technique_id: "T0831"
+      technique: "Manipulation of Control"
+    confidence: 0.80
+
+  - id: modbus_write_multiple_coils
+    when:
+      service: "modbus"
+      action: "modbus.write_multiple_coils"
+    mitre:
+      tactic: "Impact"
+      technique_id: "T0831"
+      technique: "Manipulation of Control"
+    confidence: 0.85
+

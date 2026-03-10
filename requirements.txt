@@ -1,0 +1,15 @@
+fastapi==0.115.12
+uvicorn[standard]==0.34.0
+pydantic==2.11.7
+PyYAML==6.0.2
+jinja2==3.1.6
+python-multipart==0.0.20
+orjson==3.11.3
+
+# Protocol emulation
+pymodbus==3.11.2
+
+# Optional ML (kept lightweight; you can remove if wheels are problematic)
+scikit-learn==1.6.1
+numpy==2.2.3
+
