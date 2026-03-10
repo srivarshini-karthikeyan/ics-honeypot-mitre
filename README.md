@@ -1,8 +1,3 @@
-<div align="center">
-
-<img src="https://capsule-render.vercel.app/api?type=cylinder&color=0:0d0000,40:1a0000,70:2d0000,100:0d0000&height=280&section=header&text=ICS%20HONEYPOT&fontSize=72&fontColor=ff2020&animation=blinking&fontAlignY=45&desc=%E2%96%A0%20MITRE%20ATT%26CK%20%E2%80%A2%20DECEPTION%20LAYER%20%E2%80%A2%20CRITICAL%20INFRASTRUCTURE%20DEFENSE%20%E2%96%A0&descAlignY=68&descAlign=50&descSize=13&descColor=cc0000" width="100%"/>
-
-</div>
 
 <div align="center">
 
