@@ -40,12 +40,12 @@
 
 ```
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-▓                                                                            ▓
-▓   [ ADVERSARY DETECTED ]   185.220.xxx.xxx  →  MODBUS:502                 ▓
-▓   [ TTP CLASSIFIED    ]   T0846 · Remote System Discovery                 ▓
-▓   [ MITRE MAPPED      ]   Tactic: DISCOVERY  ·  Confidence: 97%           ▓
-▓   [ ALERT DISPATCHED  ]   SOC notified  ·  IOC logged  ·  Session saved   ▓
-▓                                                                            ▓
+▓                                                                          ▓
+▓   [ ADVERSARY DETECTED ]   185.220.xxx.xxx  →  MODBUS:502                ▓
+▓   [ TTP CLASSIFIED    ]   T0846 · Remote System Discovery                ▓
+▓   [ MITRE MAPPED      ]   Tactic: DISCOVERY  ·  Confidence: 97%          ▓
+▓   [ ALERT DISPATCHED  ]   SOC notified  ·  IOC logged  ·  Session saved  ▓
+▓                                                                          ▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ```
 
@@ -86,18 +86,18 @@ It deploys a convincing fake industrial environment — complete Modbus register
                                   │  ← they see a real ICS target
                                   ▼
           ╔═══════════════════════════════════════════════╗
-          ║       D E C O Y   I N F R A S T R U C T U R E        ║
+          ║   D E C O Y   I N F R A S T R U C T U R E     ║
           ║                                               ║
-          ║   ┌─────────────┐   ┌─────────────────────┐  ║
-          ║   │  FAKE  PLC  │   │      FAKE  HMI      │  ║
-          ║   │  Modbus:502 │   │  EtherNet/IP:44818  │  ║
-          ║   └──────┬──────┘   └──────────┬──────────┘  ║
-          ║          │                     │             ║
-          ║   ┌──────▼─────────────────────▼──────────┐  ║
-          ║   │        PAYLOAD  INSPECTOR              │  ║
-          ║   │  decode · fingerprint · enrich · log   │  ║
-          ║   └──────────────────┬────────────────────┘  ║
-          ╚════════════════════════╪══════════════════════╝
+          ║   ┌─────────────┐   ┌─────────────────────┐   ║
+          ║   │  FAKE  PLC  │   │      FAKE  HMI      │   ║
+          ║   │  Modbus:502 │   │  EtherNet/IP:44818  │   ║
+          ║   └──────┬──────┘   └──────────┬──────────┘   ║
+          ║          │                     │              ║
+          ║   ┌──────▼─────────────────────▼──────────┐   ║
+          ║   │        PAYLOAD  INSPECTOR             │   ║
+          ║   │  decode · fingerprint · enrich · log  │   ║
+          ║   └──────────────────┬────────────────────┘   ║
+          ╚═══════════════════════╪═══════════════════════╝
                                   │
                           ┌───────▼────────┐
                           │  MITRE MAPPER  │
@@ -108,10 +108,10 @@ It deploys a convincing fake industrial environment — complete Modbus register
                           └───────┬────────┘
                                   │
                     ┌─────────────▼─────────────┐
-                    │   THREAT INTEL OUTPUT      │
-                    │  JSON · CSV · Navigator    │
-                    │  STIX · Alerts · IOCs      │
-                    └────────────────────────────┘
+                    │   THREAT INTEL OUTPUT     │
+                    │  JSON · CSV · Navigator   │
+                    │  STIX · Alerts · IOCs     │
+                    └───────────────────────────┘
 ```
 
 ---
@@ -178,17 +178,17 @@ Siemens S7 CPU family. Targeted in Stuxnet. High-value decoy for nation-state th
 ```
 TACTIC              │ ID     │ TECHNIQUE                         │ SIGNAL SOURCE
 ────────────────────┼────────┼───────────────────────────────────┼──────────────────────
-RECONNAISSANCE      │ T0846  │ Remote System Discovery            │ Port scan / banner grab
-RECONNAISSANCE      │ T0888  │ Remote System Info Discovery       │ Protocol enumeration
+RECONNAISSANCE      │ T0846  │ Remote System Discovery           │ Port scan / banner grab
+RECONNAISSANCE      │ T0888  │ Remote System Info Discovery      │ Protocol enumeration
 ────────────────────┼────────┼───────────────────────────────────┼──────────────────────
-COLLECTION          │ T0801  │ Monitor Process State              │ Bulk register reads
-COLLECTION          │ T0802  │ Automated Collection               │ Sequential coil polling
+COLLECTION          │ T0801  │ Monitor Process State             │ Bulk register reads
+COLLECTION          │ T0802  │ Automated Collection              │ Sequential coil polling
 ────────────────────┼────────┼───────────────────────────────────┼──────────────────────
-EXECUTION           │ T0858  │ Change Operating Mode              │ Mode switch commands
-EXECUTION           │ T0807  │ Command-Line Interface             │ Raw socket crafting
+EXECUTION           │ T0858  │ Change Operating Mode             │ Mode switch commands
+EXECUTION           │ T0807  │ Command-Line Interface            │ Raw socket crafting
 ────────────────────┼────────┼───────────────────────────────────┼──────────────────────
-INHIBIT RESPONSE    │ T0816  │ Device Restart / Shutdown          │ Stop coil writes
-INHIBIT RESPONSE    │ T0855  │ Unauthorized Command Message       │ Rogue write attempts
+INHIBIT RESPONSE    │ T0816  │ Device Restart / Shutdown         │ Stop coil writes
+INHIBIT RESPONSE    │ T0855  │ Unauthorized Command Message      │ Rogue write attempts
 ────────────────────┼────────┼───────────────────────────────────┼──────────────────────
 LATERAL MOVEMENT    │ T0812  │ Default Credentials               │ Auth brute force
 ────────────────────┼────────┼───────────────────────────────────┼──────────────────────
@@ -467,10 +467,10 @@ git push origin feature/your-feature-name
 ```
 ╔──────────────────────────────────────────────────────────────────────╗
 │                                                                      │
-│          built by  SRIVARSHINI KARTHIKEYAN                          │
-│          ICS Security Researcher  ·  Cyber Defense  ·  MITRE        │
+│          built by  SRIVARSHINI KARTHIKEYAN                           │
+│          ICS Security Researcher  ·  Cyber Defense  ·  MITRE         │
 │                                                                      │
-│          github.com/srivarshini-karthikeyan                         │
+│          github.com/srivarshini-karthikeyan                          │
 │                                                                      │
 ╚──────────────────────────────────────────────────────────────────────╝
 ```
